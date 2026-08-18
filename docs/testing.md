@@ -2,17 +2,17 @@
 
 Superpowers has two distinct kinds of tests, each in its own directory:
 
-- **`tests/`** — does the plugin's non-LLM code work? Bash + node + python integration tests for brainstorm-server JS, OpenCode plugin loading, codex-plugin sync, and analysis utilities.
-- **`evals/`** — do agents behave correctly on real LLM sessions? Python harness driving real tmux sessions of Claude Code / Codex / Gemini CLI, with an LLM actor and verifier judging skill compliance.
+- **`tests/`** — does the plugin's non-LLM code work? Bash + node integration tests for brainstorm-server JS, the SessionStart hook, and repo tooling.
+- **`evals/`** — do agents behave correctly on real LLM sessions? Python harness driving real tmux sessions of Claude Code, with an LLM actor and verifier judging skill compliance.
 
 ## Plugin tests
 
 Live in `tests/`. Currently:
 
-- `tests/brainstorm-server/` — node test suite for the brainstorm server JS code.
-- `tests/opencode/` — bash tests for OpenCode plugin loading, bootstrap caching, and tool registration.
-- `tests/codex-plugin-sync/` — bash sync verification.
-- `tests/kimi/` — bash/Python checks for Kimi plugin manifest wiring.
+- `tests/brainstorm-server/` — node test suite for the brainstorm server JS code (`npm test` in that directory).
+- `tests/hooks/` — bash tests for the SessionStart hook's output shape and the `run-hook.cmd` wrapper.
+- `tests/shell-lint/`, `tests/version-bump/` — bash tests for the repo scripts. `tests/version-bump/` requires `yq` on PATH.
+- `tests/systematic-debugging/`, `tests/writing-skills/` — bash tests for scripts shipped inside those skills.
 - `tests/claude-code/test-helpers.sh`, `analyze-token-usage.py` — utilities used by remaining bash tests.
 - `tests/claude-code/test-subagent-driven-development.sh` — agent-can-describe-SDD test (no drill counterpart; tests description-recall, not behavior).
 - `tests/claude-code/test-subagent-driven-development-integration.sh` — extended SDD integration with token analysis (drill covers the YAGNI subset; bash adds commit-count, Claude Code task-tracking, and token telemetry assertions).
